@@ -1,7 +1,10 @@
+const express=require("express");
 const nodemailer = require('nodemailer');
 const cron = require('node-cron');
+const app=express();
 require('dotenv').config();
 
+const PORT=process.env.PORT || 5000;
 
 const transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
@@ -40,3 +43,7 @@ cron.schedule('20 14 * * 5,6', () => {
   console.log('Sending email...');
   sendEmail();
 });
+
+app.listen(PORT,()=>{
+  console.log(`Server is running on port ${PORT}`);
+} );
